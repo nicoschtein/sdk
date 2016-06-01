@@ -20,20 +20,27 @@ void setup()
   debugSerial.begin(115200);
   loraSerial.begin(57600);
 
-  delay(3000);
+  delay(2000);
 
   ttu.init(loraSerial, debugSerial);
   ttu.reset();
   ttu.personalize(devAddr, nwkSKey, appSKey);
+
+  delay(4000);
   ttu.showStatus();
-
   debugPrintLn("Setup for The Things Network complete");
-
   delay(2000);
 }
 
 void loop() {
-  ttu.sendString("Hello world!");
+
+  float a = 10.10;
+  int b = 20;
+
+  String data = { "Hello: " + String(a) + " " + String(b) };
+
+  Serial.println(data);
+  ttu.sendString(data);
 
   delay(20000);
 }
